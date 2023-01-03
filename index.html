@@ -278,21 +278,29 @@
       const id = params.get("id");
       const lang = params.get("lang");
 
+      const settingsDiv = document.getElementById("settings");
+      const langSelect = document.getElementById("lang");
+      const themeSelect = document.getElementById("theme");
+      const keybindingsSelect = document.getElementById("keybindings");
+
       var editor = ace.edit("editor");
 
       const theme = localStorage.getItem("theme");
       if (theme) {
         editor.setTheme(`ace/theme/${theme}`);
+        themeSelect.value = theme;
       } else {
         editor.setTheme("ace/theme/gruvbox_dark_hard");
       }
 
       const keybindings = localStorage.getItem("keybindings");
       if (keybindings) {
+        keybindingsSelect.value = keybindings;
         editor.setKeyboardHandler(`ace/keyboard/${keybindings}`);
       }
 
       if (lang) {
+        langSelect.value = lang;
         editor.session.setMode(`ace/mode/${lang}`);
       }
 
@@ -338,24 +346,21 @@
         );
       };
 
-      const settingsDiv = document.getElementById("settings");
       const settings = () => {
+        console.log("p");
         settingsDiv.style.display =
           settingsDiv.style.display === "none" ? "flex" : "none";
       };
 
-      const langSelect = document.getElementById("lang");
       const langChange = () => {
         editor.session.setMode(`ace/mode/${langSelect.value}`);
       };
 
-      const themeSelect = document.getElementById("theme");
       const themeChange = () => {
         localStorage.setItem("theme", themeSelect.value);
         editor.setTheme(`ace/theme/${themeSelect.value}`);
       };
 
-      const keybindingsSelect = document.getElementById("keybindings");
       const keybindingsChange = () => {
         localStorage.setItem("keybindings", keybindingsSelect.value);
         editor.setKeyboardHandler(`ace/keyboard/${keybindingsSelect.value}`);
