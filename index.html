@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EffiwBin</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <button onclick="newPaste()" class="navbutton left">New</button>
+      <a style="display: none" id="effiw-link" class="navbutton"
+        ><button class="navbutton">Effis URL</button></a
+      >
+      <button onclick="save()" class="navbutton">Save</button>
+      <button onclick="settings()" class="navbutton">Settings</button>
+    </nav>
+    <div id="settings" style="display: none">
+      <h3>Settings</h3>
+      <span>
+        <label for="lang">Language</label>
+        <select name="Language" id="lang" onchange="langChange()">
+          <option value="abap">Abap</option>
+          <option value="abc">Abc</option>
+          <option value="actionscript">ActionScript</option>
+          <option value="ada">Ada</option>
+          <option value="alda">Alda</option>
+          <option value="apache_conf">Apache Conf</option>
+          <option value="apex">Apex</option>
+          <option value="applescript">AppleScript</option>
+          <option value="aql">Aql</option>
+          <option value="asciidoc">Asciidoc</option>
+          <option value="asl">Asl</option>
+          <option value="assembly_x86">x86 Assembly</option>
+          <option value="autohotkey">AutoHotKey</option>
+          <option value="batchfile">Batch</option>
+          <option value="bibtex">Bibtex</option>
+          <option value="c9search">C9search</option>
+          <option value="c_cpp">C</option>
+          <option value="c_cpp">C++</option>
+          <option value="cirru">Cirru</option>
+          <option value="clojure">Clojure</option>
+          <option value="cobol">Cobol</option>
+          <option value="coffee">Coffee</option>
+          <option value="coldfusion">Coldfusion</option>
+          <option value="crystal">Crystal</option>
+          <option value="csharp">C#</option>
+          <option value="csound_document">CSound Document</option>
+          <option value="csound_orchestra">CSound Orchestra</option>
+          <option value="csound_score">CSound Score</option>
+          <option value="csp">Csp</option>
+          <option value="css">Css</option>
+          <option value="curly">Curly</option>
+          <option value="dart">Dart</option>
+          <option value="diff">Diff</option>
+          <option value="django">Django</option>
+          <option value="d">D</option>
+          <option value="dockerfile">Dockerfile</option>
+          <option value="dot">Dot</option>
+          <option value="drools">Drools</option>
+          <option value="edifact">Edifact</option>
+          <option value="eiffel">Eiffel</option>
+          <option value="ejs">Ejs</option>
+          <option value="elixir">Elixir</option>
+          <option value="elm">Elm</option>
+          <option value="erlang">Erlang</option>
+          <option value="forth">Forth</option>
+          <option value="fortran">Fortran</option>
+          <option value="fsharp">Fsharp</option>
+          <option value="fsl">Fsl</option>
+          <option value="ftl">Ftl</option>
+          <option value="gcode">GCode</option>
+          <option value="gherkin">Gherkin</option>
+          <option value="gitignore">Gitignore</option>
+          <option value="glsl">GLSL</option>
+          <option value="gobstones">Gobstones</option>
+          <option value="golang">Golang</option>
+          <option value="graphqlschema">GQL</option>
+          <option value="groovy">Groovy</option>
+          <option value="haml">Haml</option>
+          <option value="handlebars">Handlebars</option>
+          <option value="haskell_cabal">Haskell Cabal</option>
+          <option value="haskell">Haskell</option>
+          <option value="haxe">Haxe</option>
+          <option value="hjson">Hjson</option>
+          <option value="html_elixir">HTML Elixir</option>
+          <option value="html">HTML</option>
+          <option value="html_ruby">HTML ruby</option>
+          <option value="ini">INI</option>
+          <option value="io">IO</option>
+          <option value="ion">Ion</option>
+          <option value="jack">Jack</option>
+          <option value="jade">Jade</option>
+          <option value="java">Java</option>
+          <option value="javascript">JavaScript</option>
+          <option value="jexl">Jexl</option>
+          <option value="json5">JSON5</option>
+          <option value="jsoniq">JSONIQ</option>
+          <option value="json">JSON</option>
+          <option value="jsp">Jsp</option>
+          <option value="jssm">Jssm</option>
+          <option value="jsx">JSX</option>
+          <option value="julia">Julia</option>
+          <option value="kotlin">Kotlin</option>
+          <option value="latex">Latex</option>
+          <option value="latte">Latte</option>
+          <option value="less">Less</option>
+          <option value="liquid">Liquid</option>
+          <option value="lisp">Lisp</option>
+          <option value="livescript">LiveScript</option>
+          <option value="logiql">Logiql</option>
+          <option value="logtalk">Logtalk</option>
+          <option value="lsl">LSL</option>
+          <option value="lua">Lua</option>
+          <option value="luapage">Luapage</option>
+          <option value="lucene">Lucene</option>
+          <option value="makefile">Makefile</option>
+          <option value="markdown">MarkDown</option>
+          <option value="mask">Mask</option>
+          <option value="matlab">Matlab</option>
+          <option value="maze">Maze</option>
+          <option value="mediawiki">Mediawiki</option>
+          <option value="mel">Mel</option>
+          <option value="mips">Mips</option>
+          <option value="mixal">Mixal</option>
+          <option value="mushcode">Mushcode</option>
+          <option value="mysql">Mysql</option>
+          <option value="nginx">Nginx</option>
+          <option value="nim">Nim</option>
+          <option value="nix">Nix</option>
+          <option value="nsis">Nsis</option>
+          <option value="nunjucks">Nunjucks</option>
+          <option value="objectivec">Objectivec</option>
+          <option value="ocaml">Ocaml</option>
+          <option value="partiql">Partiql</option>
+          <option value="pascal">Pascal</option>
+          <option value="perl">Perl</option>
+          <option value="pgsql">Pgsql</option>
+          <option value="php">Php</option>
+          <option value="php_laravel_blade">PHP Laravel Blade</option>
+          <option value="pig">Pig</option>
+          <option value="plain_text">Plain</option>
+          <option value="powershell">Powershell</option>
+          <option value="praat">Praat</option>
+          <option value="prisma">Prisma</option>
+          <option value="prolog">Prolog</option>
+          <option value="properties">Properties</option>
+          <option value="protobuf">Protobuf</option>
+          <option value="puppet">Puppet</option>
+          <option value="python">Python</option>
+          <option value="qml">QML</option>
+          <option value="raku">Raku</option>
+          <option value="razor">Razor</option>
+          <option value="rdoc">Rdoc</option>
+          <option value="red">Red</option>
+          <option value="redshift">Redshift</option>
+          <option value="rhtml">Rhtml</option>
+          <option value="r">R</option>
+          <option value="robot">Robot</option>
+          <option value="rst">RST</option>
+          <option value="ruby">Ruby</option>
+          <option value="rust">Rust</option>
+          <option value="sac">Sac</option>
+          <option value="sass">Sass</option>
+          <option value="scad">Scad</option>
+          <option value="scala">Scala</option>
+          <option value="scheme">Scheme</option>
+          <option value="scrypt">Scrypt</option>
+          <option value="scss">SCSS</option>
+          <option value="sh">Shell</option>
+          <option value="sjs">SJS</option>
+          <option value="slim">Slim</option>
+          <option value="smarty">Smarty</option>
+          <option value="smithy">Smithy</option>
+          <option value="snippets">Snippets</option>
+          <option value="soy_template">Soy Template</option>
+          <option value="space">Space</option>
+          <option value="sparql">Sparql</option>
+          <option value="sql">Sql</option>
+          <option value="sqlserver">Sqlserver</option>
+          <option value="stylus">Stylus</option>
+          <option value="svg">SVG</option>
+          <option value="swift">Swift</option>
+          <option value="tcl">Tcl</option>
+          <option value="terraform">Terraform</option>
+          <option value="tex">Tex</option>
+          <option value="textile">Textile</option>
+          <option value="text">Text</option>
+          <option value="toml">Toml</option>
+          <option value="tsx">Tsx</option>
+          <option value="turtle">Turtle</option>
+          <option value="twig">Twig</option>
+          <option value="typescript">TypeScript</option>
+          <option value="vala">Vala</option>
+          <option value="vbscript">VBS</option>
+          <option value="velocity">Velocity</option>
+          <option value="verilog">Verilog</option>
+          <option value="vhdl">VHDL</option>
+          <option value="visualforce">Visualforce</option>
+          <option value="wollok">Wollok</option>
+          <option value="xml">XML</option>
+          <option value="xquery">Xquery</option>
+          <option value="yaml">Yaml</option>
+          <option value="zeek">Zeek</option>
+        </select>
+      </span>
+      <span>
+        <label for="theme">Theme</label>
+        <select name="Theme" id="theme" onchange="themeChange()">
+          <option value="ambiance">Ambiance</option>
+          <option value="chaos">Chaos</option>
+          <option value="chrome">Chrome</option>
+          <option value="cloud9_day">Cloud9 Day</option>
+          <option value="cloud9_night">Cloud9 Night</option>
+          <option value="cloud9_night_low_color">Cloud9 Night Low Color</option>
+          <option value="clouds">Clouds</option>
+          <option value="clouds_midnight">Clouds Midnight</option>
+          <option value="cobalt">Cobalt</option>
+          <option value="crimson_editor">Crimson Editor</option>
+          <option value="dawn">Dawn</option>
+          <option value="dracula">Dracula</option>
+          <option value="dreamweaver">Dreamweaver</option>
+          <option value="eclipse">Eclipse</option>
+          <option value="github">Github</option>
+          <option value="gob">Gob</option>
+          <option value="gruvbox_dark_hard">Gruvbox Dark Hard</option>
+          <option value="gruvbox">Gruvbox</option>
+          <option value="gruvbox_light_hard">Gruvbox Light Hard</option>
+          <option value="idle_fingers">Idle Fingers</option>
+          <option value="iplastic">Iplastic</option>
+          <option value="katzenmilch">Katzenmilch</option>
+          <option value="kr_theme">KR theme</option>
+          <option value="kuroir">Kuroir</option>
+          <option value="merbivore">Merbivore</option>
+          <option value="merbivore_soft">Merbivore Soft</option>
+          <option value="mono_industrial">Mono Industrial</option>
+          <option value="monokai">Monokai</option>
+          <option value="nord_dark">Nord Dark</option>
+          <option value="one_dark">One Dark</option>
+          <option value="pastel_on_dark">Pastel on Dark</option>
+          <option value="solarized_dark">Solarized Dark</option>
+          <option value="solarized_light">Solarized Light</option>
+          <option value="sqlserver">SQL server</option>
+          <option value="terminal">Terminal</option>
+          <option value="textmate">Textmate</option>
+          <option value="tomorrow">Tomorrow</option>
+          <option value="tomorrow_night_blue">Tomorrow Night Blue</option>
+          <option value="tomorrow_night_bright">Tomorrow Night Bright</option>
+          <option value="tomorrow_night_eighties">
+            Tomorrow Night Eighties
+          </option>
+          <option value="tomorrow_night">Tomorrow Night</option>
+          <option value="twilight">Twilight</option>
+          <option value="vibrant_ink">Vibrant Ink</option>
+          <option value="xcode">XCode</option>
+        </select>
+      </span>
+      <span>
+        <label for="keybindings">Keybindings</label>
+        <select
+          name="Keybindings"
+          id="keybindings"
+          onchange="keybindingsChange()"
+        >
+          <option value="vscode">VSCode</option>
+          <option value="vim">Vim</option>
+          <option value="sublime">Sublime Text</option>
+          <option value="emacs">Emacs</option>
+        </select>
+      </span>
+    </div>
+    <div id="editor"></div>
+
+    <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+      const params = new URL(location.href).searchParams;
+      const id = params.get("id");
+      const lang = params.get("lang");
+
+      var editor = ace.edit("editor");
+
+      const theme = localStorage.getItem("theme");
+      if (theme) {
+        editor.setTheme(`ace/theme/${theme}`);
+      } else {
+        editor.setTheme("ace/theme/gruvbox_dark_hard");
+      }
+
+      const keybindings = localStorage.getItem("keybindings");
+      if (keybindings) {
+        editor.setKeyboardHandler(`ace/keyboard/${keybindings}`);
+      }
+
+      if (lang) {
+        editor.session.setMode(`ace/mode/${lang}`);
+      }
+
+      editor.setShowPrintMargin(false);
+      if (id) {
+        editor.setValue("Loading, please wait...");
+        fetch(`https://effis.tooty.xyz/${id}/data`).then((resp) => {
+          resp.json().then((data) => {
+            if (data.metadata.type == "text") {
+              const effiwLink = document.getElementById("effiw-link");
+              effiwLink.href = `https://effis.tooty.xyz/${id}`;
+              effiwLink.style.display = "block";
+              fetch(`https://effis.tooty.xyz/${id}`).then((resp) => {
+                resp.text().then((text) => {
+                  editor.setValue(text, -1);
+                });
+              });
+
+              editor.setReadOnly(true);
+            } else {
+              alert("Invalid file type");
+            }
+          });
+        });
+      }
+    </script>
+    <script>
+      const newPaste = () => {
+        location.href = "/";
+      };
+
+      const save = () => {
+        fetch("https://effis.tooty.xyz/", {
+          body: `file=${editor.getValue()}`,
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }).then((resp) =>
+          resp.json().then((data) => {
+            location.href = `/?id=${data.id}&lang=${langSelect.value}`;
+          })
+        );
+      };
+
+      const settingsDiv = document.getElementById("settings");
+      const settings = () => {
+        settingsDiv.style.display =
+          settingsDiv.style.display === "none" ? "flex" : "none";
+      };
+
+      const langSelect = document.getElementById("lang");
+      const langChange = () => {
+        editor.session.setMode(`ace/mode/${langSelect.value}`);
+      };
+
+      const themeSelect = document.getElementById("theme");
+      const themeChange = () => {
+        localStorage.setItem("theme", themeSelect.value);
+        editor.setTheme(`ace/theme/${themeSelect.value}`);
+      };
+
+      const keybindingsSelect = document.getElementById("keybindings");
+      const keybindingsChange = () => {
+        localStorage.setItem("keybindings", keybindingsSelect.value);
+        editor.setKeyboardHandler(`ace/keyboard/${keybindingsSelect.value}`);
+      };
+    </script>
+  </body>
+</html>
