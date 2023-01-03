@@ -273,7 +273,7 @@
 
     <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
-      const root = "/effiw";
+      const root = "/effiwbin";
       const params = new URL(location.href).searchParams;
       const id = params.get("id");
       const lang = params.get("lang");
@@ -321,7 +321,7 @@
     </script>
     <script>
       const newPaste = () => {
-        location.href = "/";
+        location.href = root;
       };
 
       const save = () => {
