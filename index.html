@@ -273,6 +273,7 @@
 
     <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
+      const root = "/effiw";
       const params = new URL(location.href).searchParams;
       const id = params.get("id");
       const lang = params.get("lang");
@@ -332,7 +333,7 @@
           },
         }).then((resp) =>
           resp.json().then((data) => {
-            location.href = `/?id=${data.id}&lang=${langSelect.value}`;
+            location.href = `${root}/?id=${data.id}&lang=${langSelect.value}`;
           })
         );
       };
