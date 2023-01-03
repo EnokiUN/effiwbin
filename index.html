@@ -272,6 +272,7 @@
     <div id="editor"></div>
 
     <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="ace/ext-language_tools.js"></script>
     <script>
       const root = "/effiwbin";
       const params = new URL(location.href).searchParams;
@@ -283,7 +284,12 @@
       const themeSelect = document.getElementById("theme");
       const keybindingsSelect = document.getElementById("keybindings");
 
+      ace.require("ace/ext/language_tools");
       var editor = ace.edit("editor");
+
+      editor.setOptions({
+        enableBasicAutocompletion: true
+      });
 
       const theme = localStorage.getItem("theme");
       if (theme) {
@@ -297,6 +303,15 @@
       if (keybindings) {
         keybindingsSelect.value = keybindings;
         editor.setKeyboardHandler(`ace/keyboard/${keybindings}`);
+
+        if (keybindings == "vim") {
+          ace.config.loadModule("ace/keyboard/vim", (m) => {
+            var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
+            VimApi.defineEx("write", "w", (cm, input) => {
+              save()
+            })
+          })
+        }
       }
 
       if (lang) {
@@ -326,6 +341,14 @@
           });
         });
       }
+      editor.commands.addCommand({
+          name: "write",
+          bindKey: {win: "Ctrl-S",  mac: "Command-S"},
+          exec: (editor) => {
+            save();
+          },
+          readOnly: false,
+      });
     </script>
     <script>
       const newPaste = () => {
@@ -364,6 +387,14 @@
       const keybindingsChange = () => {
         localStorage.setItem("keybindings", keybindingsSelect.value);
         editor.setKeyboardHandler(`ace/keyboard/${keybindingsSelect.value}`);
+        if (keybindings == "vim") {
+          ace.config.loadModule("ace/keyboard/vim", (m) => {
+            var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
+            VimApi.defineEx("write", "w", (cm, input) => {
+              save()
+            })
+          })
+        }
       };
     </script>
   </body>
