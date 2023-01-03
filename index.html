@@ -11,7 +11,7 @@
     <meta property="og:image:height" content="300" />
     <meta property="og:description" content="A paste service built on Eludris' Effis!" />
     <meta name="theme-color" content="#211233" />
-    <link rel="icon" type="image/x-icon" href="/effiwbin/favicon.ico" />  
+    <link rel="icon" type="image/x-icon" href="/effiwbin/favicon.ico" />
     <title>EffiwBin</title>
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -278,6 +278,10 @@
           <option value="emacs">Emacs</option>
         </select>
       </span>
+      <span>
+        <label for="instanceUrl">Instance URL</label>
+        <input type="text" id="instanceUrl" placeholder="https://effis.tooty.xyz" onchange="instanceUrlChange()"></input>
+      </span>
     </div>
     <div id="editor"></div>
 
@@ -293,6 +297,13 @@
       const langSelect = document.getElementById("lang");
       const themeSelect = document.getElementById("theme");
       const keybindingsSelect = document.getElementById("keybindings");
+      const instanceUrlInput = document.getElementById("instanceUrl");
+
+      const instance = localStorage.getItem("instanceUrl");
+      let instanceUrl = instance? instance: "https://effis.tooty.xyz";
+      if (instance) {
+        instanceUrlInput.value = instance;
+      }
 
       ace.require("ace/ext/language_tools");
       var editor = ace.edit("editor");
@@ -327,18 +338,20 @@
       if (lang) {
         langSelect.value = lang;
         editor.session.setMode(`ace/mode/${lang}`);
+      } else {
+        langSelect.value = "text";
       }
 
       editor.setShowPrintMargin(false);
       if (id) {
         editor.setValue("Loading, please wait...");
-        fetch(`https://effis.tooty.xyz/${id}/data`).then((resp) => {
+        fetch(`${instanceUrl}/${id}/data`).then((resp) => {
           resp.json().then((data) => {
             if (data.metadata.type == "text") {
               const effiwLink = document.getElementById("effiw-link");
-              effiwLink.href = `https://effis.tooty.xyz/${id}`;
+              effiwLink.href = `${instanceUrl}/${id}`;
               effiwLink.style.display = "block";
-              fetch(`https://effis.tooty.xyz/${id}`).then((resp) => {
+              fetch(`${instanceUrl}/${id}`).then((resp) => {
                 resp.text().then((text) => {
                   editor.setValue(text, -1);
                 });
@@ -366,7 +379,7 @@
       };
 
       const save = () => {
-        fetch("https://effis.tooty.xyz/", {
+        fetch(instanceUrl, {
           body: `file=${editor.getValue()}`,
           method: "POST",
           headers: {
@@ -380,7 +393,6 @@
       };
 
       const settings = () => {
-        console.log("p");
         settingsDiv.style.display =
           settingsDiv.style.display === "none" ? "flex" : "none";
       };
@@ -406,6 +418,15 @@
           })
         }
       };
+
+      const instanceUrlChange = () => {
+        localStorage.setItem("instanceUrl", instanceUrlInput.value);
+        if (instanceUrlInput.value.length == 0) {
+          localStorage.removeItem("instanceUrl");
+        } else {
+          instanceUrl = instanceUrlInput.value;
+        }
+      }
     </script>
   </body>
 </html>
