@@ -346,6 +346,18 @@
         );
       };
 
+      document.addEventListener(
+        "keydown",
+        function (e) {
+          // CTRL + S or "CMD" + S
+          if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey) && e.keyCode == 83) {
+            e.preventDefault();
+            save();
+          }
+        },
+        false,
+      );
+
       const settings = () => {
         console.log("p");
         settingsDiv.style.display =
