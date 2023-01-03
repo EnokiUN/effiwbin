@@ -18,7 +18,6 @@ nav {
   margin: 0;
   background-color: #211233;
   color: #eeeeee;
-  gap: 2rem;
 }
 
 .navbutton {
@@ -29,7 +28,19 @@ nav {
   cursor: pointer;
   transition: color ease-in-out 125ms, font-size ease-in-out 125ms;
   margin: 0;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
+  text-align: center;
+}
+
+.nava {
+  border: none;
+  font-size: 1.2rem;
+  background-color: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: color ease-in-out 125ms, font-size ease-in-out 125ms;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
@@ -48,7 +59,7 @@ nav > .left {
 
 #editor {
   position: absolute;
-  top: calc(var(--nav-height) + var(--nav-padding));
+  top: calc(var(--nav-height) + calc(var(--nav-padding) * 2));
   right: 0;
   bottom: 0;
   left: 0;
@@ -59,7 +70,7 @@ nav > .left {
   z-index: 1;
   position: absolute;
   right: 0;
-  top: calc(var(--nav-height) + var(--nav-padding));
+  top: calc(var(--nav-height) + calc(var(--nav-padding) * 2));
   margin: 1rem;
   padding: 1rem;
   display: flex;
