@@ -288,47 +288,47 @@
     <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="ace/ext-language_tools.js"></script>
     <script>
-      const root = "/effiwbin";
+      const root = '/effiwbin';
       const params = new URL(location.href).searchParams;
-      const id = params.get("id");
-      const lang = params.get("lang");
+      const id = params.get('id');
+      const lang = params.get('lang');
 
-      const settingsDiv = document.getElementById("settings");
-      const langSelect = document.getElementById("lang");
-      const themeSelect = document.getElementById("theme");
-      const keybindingsSelect = document.getElementById("keybindings");
-      const instanceUrlInput = document.getElementById("instanceUrl");
+      const settingsDiv = document.getElementById('settings');
+      const langSelect = document.getElementById('lang');
+      const themeSelect = document.getElementById('theme');
+      const keybindingsSelect = document.getElementById('keybindings');
+      const instanceUrlInput = document.getElementById('instanceUrl');
 
-      const instance = localStorage.getItem("instanceUrl");
-      let instanceUrl = instance? instance: "https://effis.tooty.xyz";
+      const instance = localStorage.getItem('instanceUrl');
+      let instanceUrl = instance? instance: 'https://effis.tooty.xyz';
       if (instance) {
         instanceUrlInput.value = instance;
       }
 
-      ace.require("ace/ext/language_tools");
-      var editor = ace.edit("editor");
+      ace.require('ace/ext/language_tools');
+      var editor = ace.edit('editor');
 
       editor.setOptions({
         enableBasicAutocompletion: true
       });
 
-      const theme = localStorage.getItem("theme");
+      const theme = localStorage.getItem('theme');
       if (theme) {
         editor.setTheme(`ace/theme/${theme}`);
         themeSelect.value = theme;
       } else {
-        editor.setTheme("ace/theme/gruvbox_dark_hard");
+        editor.setTheme('ace/theme/gruvbox_dark_hard');
       }
 
-      const keybindings = localStorage.getItem("keybindings");
+      const keybindings = localStorage.getItem('keybindings');
       if (keybindings) {
         keybindingsSelect.value = keybindings;
         editor.setKeyboardHandler(`ace/keyboard/${keybindings}`);
 
-        if (keybindings == "vim") {
-          ace.config.loadModule("ace/keyboard/vim", (m) => {
-            var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
-            VimApi.defineEx("write", "w", (cm, input) => {
+        if (keybindings == 'vim') {
+          ace.config.loadModule('ace/keyboard/vim', (m) => {
+            var VimApi = require('ace/keyboard/vim').CodeMirror.Vim
+            VimApi.defineEx('write', 'w', (cm, input) => {
               save()
             })
           })
@@ -339,18 +339,18 @@
         langSelect.value = lang;
         editor.session.setMode(`ace/mode/${lang}`);
       } else {
-        langSelect.value = "text";
+        langSelect.value = 'text';
       }
 
       editor.setShowPrintMargin(false);
       if (id) {
-        editor.setValue("Loading, please wait...");
+        editor.setValue('Loading, please wait...');
         fetch(`${instanceUrl}/${id}/data`).then((resp) => {
           resp.json().then((data) => {
-            if (data.metadata.type == "text") {
-              const effiwLink = document.getElementById("effiw-link");
+            if (data.metadata.type == 'text') {
+              const effiwLink = document.getElementById('effiw-link');
               effiwLink.href = `${instanceUrl}/${id}`;
-              effiwLink.style.display = "block";
+              effiwLink.style.display = 'block';
               fetch(`${instanceUrl}/${id}`).then((resp) => {
                 resp.text().then((text) => {
                   editor.setValue(text, -1);
@@ -359,14 +359,14 @@
 
               editor.setReadOnly(true);
             } else {
-              alert("Invalid file type");
+              alert('Invalid file type');
             }
           });
         });
       }
       editor.commands.addCommand({
-          name: "write",
-          bindKey: {win: "Ctrl-S",  mac: "Command-S"},
+          name: 'write',
+          bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
           exec: (editor) => {
             save();
           },
@@ -379,12 +379,11 @@
       };
 
       const save = () => {
+        let formData = new FormData();
+        formData.append('file', editor.getValue());
         fetch(instanceUrl, {
-          body: `file=${editor.getValue()}`,
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
+          body: formData,
+          method: 'POST',
         }).then((resp) =>
           resp.json().then((data) => {
             location.href = `${root}/?id=${data.id}&lang=${langSelect.value}`;
@@ -394,7 +393,7 @@
 
       const settings = () => {
         settingsDiv.style.display =
-          settingsDiv.style.display === "none" ? "flex" : "none";
+          settingsDiv.style.display === 'none' ? 'flex' : 'none';
       };
 
       const langChange = () => {
@@ -402,17 +401,17 @@
       };
 
       const themeChange = () => {
-        localStorage.setItem("theme", themeSelect.value);
+        localStorage.setItem('theme', themeSelect.value);
         editor.setTheme(`ace/theme/${themeSelect.value}`);
       };
 
       const keybindingsChange = () => {
-        localStorage.setItem("keybindings", keybindingsSelect.value);
+        localStorage.setItem('keybindings', keybindingsSelect.value);
         editor.setKeyboardHandler(`ace/keyboard/${keybindingsSelect.value}`);
-        if (keybindings == "vim") {
-          ace.config.loadModule("ace/keyboard/vim", (m) => {
-            var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
-            VimApi.defineEx("write", "w", (cm, input) => {
+        if (keybindings == 'vim') {
+          ace.config.loadModule('ace/keyboard/vim', (m) => {
+            var VimApi = require('ace/keyboard/vim').CodeMirror.Vim
+            VimApi.defineEx('write', 'w', (cm, input) => {
               save()
             })
           })
@@ -420,9 +419,9 @@
       };
 
       const instanceUrlChange = () => {
-        localStorage.setItem("instanceUrl", instanceUrlInput.value);
+        localStorage.setItem('instanceUrl', instanceUrlInput.value);
         if (instanceUrlInput.value.length == 0) {
-          localStorage.removeItem("instanceUrl");
+          localStorage.removeItem('instanceUrl');
         } else {
           instanceUrl = instanceUrlInput.value;
         }
