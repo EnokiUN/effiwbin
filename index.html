@@ -347,7 +347,7 @@
         editor.setValue('Loading, please wait...');
         fetch(`${instanceUrl}/${id}/data`).then((resp) => {
           resp.json().then((data) => {
-            if (data.metadata.type == 'text') {
+            if (data.metadata.type == 'TEXT') {
               const effiwLink = document.getElementById('effiw-link');
               effiwLink.href = `${instanceUrl}/${id}`;
               effiwLink.style.display = 'block';
