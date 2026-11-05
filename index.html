@@ -280,7 +280,7 @@
       </span>
       <span>
         <label for="instanceUrl">Instance URL</label>
-        <input type="text" id="instanceUrl" placeholder="https://effis.tooty.xyz" onchange="instanceUrlChange()"></input>
+        <input type="text" id="instanceUrl" placeholder="https://api.eludris.net" onchange="instanceUrlChange()"></input>
       </span>
     </div>
     <div id="editor"></div>
@@ -300,7 +300,7 @@
       const instanceUrlInput = document.getElementById('instanceUrl');
 
       const instance = localStorage.getItem('instanceUrl');
-      let instanceUrl = instance? instance: 'https://cdn.eludris.com';
+      let instanceUrl = instance ? instance : 'https://cdn.eludris.net';
       if (instance) {
         instanceUrlInput.value = instance;
       }
